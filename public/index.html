@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071b20">
+    <title>Controle de Ponto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="backgroundNetwork" class="background-network" aria-hidden="true"></canvas>
+    <section id="loginView" class="auth-view" aria-labelledby="loginTitle">
+        <a class="brand auth-brand" href="#login" aria-label="Controle de Ponto">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg></span>
+            <span>Controle <span class="brand-light">de Ponto</span></span>
+        </a>
+        <div class="auth-card card">
+            <p id="loginKicker" class="card-kicker">ACESSO DO FUNCIONÁRIO</p>
+            <h1 id="loginTitle">Entrar no sistema</h1>
+            <p id="loginDescription" class="auth-description">Entre com o e-mail e a senha da sua conta de funcionário.</p>
+            <div class="login-mode-switch" role="group" aria-label="Tipo de acesso">
+                <button id="modoFuncionario" class="login-mode-button is-active" type="button" aria-pressed="true">Funcionário</button>
+                <button id="modoDiretor" class="login-mode-button" type="button" aria-pressed="false">Acesso administrativo</button>
+            </div>
+            <form id="formLogin" class="auth-form">
+                <label for="loginEmail">E-mail</label>
+                <input id="loginEmail" name="email" type="email" autocomplete="username" required placeholder="voce@empresa.com">
+                <label for="loginPassword">Senha</label>
+                <div class="password-field">
+                    <input id="loginPassword" name="password" type="password" autocomplete="current-password" required placeholder="Digite sua senha">
+                    <button id="alternarSenha" class="password-toggle" type="button" aria-pressed="false">Mostrar senha</button>
+                </div>
+                <button id="botaoLogin" class="save-employee-button auth-submit" type="submit">Entrar</button>
+                <p id="loginStatus" class="auth-status" role="status" aria-live="polite"></p>
+            </form>
+            <button id="mostrarRecuperacaoSenha" class="auth-secondary-action" type="button">Esqueci minha senha</button>
+            <form id="formRecuperacaoSenha" class="auth-form auth-signup-form" hidden>
+                <label for="emailRecuperacaoSenha">E-mail</label>
+                <input id="emailRecuperacaoSenha" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com">
+                <button id="botaoRecuperacaoSenha" class="save-employee-button auth-submit" type="submit">Enviar link de recuperação</button>
+                <p id="statusRecuperacaoSenha" class="auth-status" role="status" aria-live="polite"></p>
+                <button id="voltarLoginRecuperacao" class="auth-secondary-action" type="button">Voltar ao login</button>
+            </form>
+            <button id="mostrarCadastroDiretor" class="auth-secondary-action" type="button" hidden>Primeiro acesso? Criar conta de diretor</button>
+            <form id="formCadastroDiretor" class="auth-form auth-signup-form" hidden>
+                <label for="nomeDiretorCadastro">Nome</label>
+                <input id="nomeDiretorCadastro" name="nome" type="text" autocomplete="name" maxlength="120" required placeholder="Seu nome">
+                <label for="emailDiretorCadastro">E-mail</label>
+                <input id="emailDiretorCadastro" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com">
+                <label for="senhaDiretorCadastro">Senha</label>
+                <input id="senhaDiretorCadastro" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="Mínimo de 8 caracteres">
+                <label for="confirmarSenhaDiretor">Confirmar senha</label>
+                <input id="confirmarSenhaDiretor" name="confirmarSenha" type="password" autocomplete="new-password" minlength="8" required placeholder="Repita a senha">
+                <label for="codigoBootstrapDiretor">Código de primeiro acesso</label>
+                <input id="codigoBootstrapDiretor" name="bootstrapCode" type="password" autocomplete="off" required placeholder="Código fornecido para ativar o primeiro diretor">
+                <button class="save-employee-button auth-submit" type="submit">Criar conta</button>
+                <p id="cadastroDiretorStatus" class="auth-status" role="status" aria-live="polite"></p>
+                <button id="voltarLoginDiretor" class="auth-secondary-action" type="button">Voltar ao login</button>
+            </form>
+        </div>
+    </section>
+    <section id="firstAccessView" class="auth-view" hidden aria-labelledby="firstAccessTitle">
+        <a class="brand auth-brand" href="#login" aria-label="Controle de Ponto">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg></span>
+            <span>Controle <span class="brand-light">de Ponto</span></span>
+        </a>
+        <div class="auth-card card password-setup-card">
+            <p id="firstAccessKicker" class="card-kicker">PRIMEIRO ACESSO</p>
+            <h1 id="firstAccessTitle">Crie sua senha definitiva</h1>
+            <p id="firstAccessDescription" class="auth-description">Este é seu primeiro acesso. Por segurança, você precisa criar uma senha pessoal antes de continuar.</p>
+            <form id="formNovaSenha" class="auth-form">
+                <label for="novaSenhaDefinitiva">Nova senha</label>
+                <div class="password-field">
+                    <input id="novaSenhaDefinitiva" name="newPassword" type="password" autocomplete="new-password" required>
+                    <button class="password-toggle" type="button" data-password-toggle="novaSenhaDefinitiva" aria-pressed="false">Mostrar senha</button>
+                </div>
+                <ul class="password-requirements" aria-label="Requisitos da senha">
+                    <li id="requisitoTamanho">Pelo menos 8 caracteres</li>
+                    <li id="requisitoLetra">Pelo menos uma letra</li>
+                    <li id="requisitoNumero">Pelo menos um número</li>
+                </ul>
+                <label for="confirmarNovaSenha">Confirmar nova senha</label>
+                <div class="password-field">
+                    <input id="confirmarNovaSenha" name="confirmPassword" type="password" autocomplete="new-password" required>
+                    <button class="password-toggle" type="button" data-password-toggle="confirmarNovaSenha" aria-pressed="false">Mostrar senha</button>
+                </div>
+                <button id="botaoCriarSenhaDefinitiva" class="save-employee-button auth-submit" type="submit">CRIAR SENHA DEFINITIVA</button>
+                <p id="statusNovaSenha" class="auth-status" role="status" aria-live="polite"></p>
+                <button id="botaoSairTrocaSenha" class="auth-secondary-action" type="button">Sair</button>
+            </form>
+        </div>
+    </section>
+    <section id="directorShell" class="director-shell" hidden aria-labelledby="directorTitle">
+        <header class="director-topbar">
+            <a class="brand" href="#painel-diretor" aria-label="Controle de Ponto">
+                <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg></span>
+                <span>Controle <span class="brand-light">de Ponto</span></span>
+            </a>
+            <button id="botaoSairDiretor" class="logout-button" type="button">Sair</button>
+        </header>
+        <main id="painel-diretor" class="director-main">
+            <section class="director-welcome card">
+                <p class="card-kicker">ACESSO ADMINISTRATIVO</p>
+                <h1 id="directorTitle">PAINEL DO DIRETOR</h1>
+                <p id="directorGreeting" class="director-greeting">Olá</p>
+                <p>Você está conectado como Diretor.</p>
+                <div class="director-account">
+                    <div><span>Usuário</span><strong id="directorEmail"></strong></div>
+                    <div><span>Status</span><strong class="director-status"><i aria-hidden="true"></i> Diretor</strong></div>
+                </div>
+            </section>
+            <section class="director-placeholder card" aria-label="Resumo do painel administrativo">
+                <span class="card-kicker">VISÃO GERAL</span>
+                <div class="director-metrics">
+                    <article class="director-metric"><span>FUNCIONÁRIOS</span><strong id="totalFuncionarios">—</strong></article>
+                    <article class="director-metric"><span>PRESENÇAS HOJE</span><strong id="presencasHoje">—</strong></article>
+                    <article class="director-metric"><span>PRESENÇAS DA SEMANA</span><strong id="presencasSemana">—</strong></article>
+                    <article class="director-metric"><span>PRESENÇAS DO MÊS</span><strong id="presencasMes">—</strong></article>
+                    <article class="director-metric"><span>JORNADAS ABERTAS</span><strong id="trabalhandoAgora">—</strong></article>
+                </div>
+            </section>
+            <section class="director-tools card" aria-labelledby="employeesAdminTitle">
+                <div class="director-section-heading">
+                    <div><span class="card-kicker">EQUIPE</span><h2 id="employeesAdminTitle">Funcionários e registros</h2></div>
+                    <button id="alternarFormularioFuncionario" class="director-action-button" type="button">Cadastrar funcionário</button>
+                </div>
+                <form id="formNovoFuncionario" class="admin-employee-form" hidden>
+                    <label>Nome<input id="novoFuncionarioNome" name="nome" required maxlength="120" autocomplete="name"></label>
+                    <label>E-mail<input id="novoFuncionarioEmail" name="email" type="email" required autocomplete="email"></label>
+                    <label>Função<select id="novaFuncaoFuncionario" name="funcao" required>
+                        <option value="Limpeza">Limpeza</option><option value="Assessor">Assessor</option><option value="Programador">Programador</option><option value="Proprietário">Proprietário</option><option value="SDR">SDR</option><option value="Comercial">Comercial</option>
+                    </select></label>
+                    <div class="admin-form-actions"><button class="director-action-button" type="submit">Cadastrar funcionário</button><button id="criarFuncionarioTeste" class="director-quiet-button" type="button">Criar funcionário teste</button></div>
+                    <p id="statusNovoFuncionario" class="admin-status" role="status" aria-live="polite"></p>
+                </form>
+                <div class="director-filters">
+                    <label>Funcionário<select id="filtroFuncionario"><option value="todos">Todos</option></select></label>
+                    <label>Período<select id="filtroPeriodo"><option value="todos">Todos os registros</option><option value="hoje">Hoje</option><option value="semana">Esta semana</option><option value="mes">Este mês</option><option value="personalizado">Período personalizado</option></select></label>
+                    <label>Mês<input id="filtroMes" type="month"></label>
+                    <label>De<input id="filtroDataInicio" type="date"></label>
+                    <label>Até<input id="filtroDataFim" type="date"></label>
+                    <button id="aplicarFiltros" class="director-quiet-button" type="button">Aplicar</button>
+                </div>
+                <p id="statusDashboard" class="admin-status" role="status" aria-live="polite">Carregando dados do painel...</p>
+                <div class="admin-table-scroll">
+                    <table class="admin-table"><thead><tr><th>Funcionário</th><th>Função</th><th>E-mail</th><th>Status</th><th>Dias na semana</th><th>Dias no mês</th><th>Última entrada</th><th>Última saída</th><th>Ações</th></tr></thead><tbody id="listaFuncionariosDiretor"></tbody></table>
+                </div>
+            </section>
+            <section id="detalheFuncionarioDiretor" class="director-tools card" hidden aria-labelledby="detalheFuncionarioTitulo">
+                <div class="director-section-heading"><div><span class="card-kicker">DETALHES</span><h2 id="detalheFuncionarioTitulo">Funcionário</h2><p id="detalheFuncionarioContato"></p></div><button id="fecharDetalheFuncionario" class="director-quiet-button" type="button">Fechar</button></div>
+                <div class="director-metrics detail-metrics"><article class="director-metric"><span>DIAS TRABALHADOS NA SEMANA</span><strong id="detalheDiasSemana">—</strong></article><article class="director-metric"><span>HORAS TRABALHADAS NA SEMANA</span><strong id="detalheHorasSemana">—</strong></article><article class="director-metric"><span>DIAS TRABALHADOS NO MÊS</span><strong id="detalheDiasMes">—</strong></article><article class="director-metric"><span>HORAS TRABALHADAS NO MÊS</span><strong id="detalheHorasMes">—</strong></article><article class="director-metric"><span>MÉDIA DE ENTRADA</span><strong id="detalheMediaEntrada">—</strong></article><article class="director-metric"><span>MÉDIA DE SAÍDA</span><strong id="detalheMediaSaida">—</strong></article></div>
+                <h3 class="admin-subheading">Resumo semanal</h3><div id="resumoSemanalDiretor" class="weekly-summary"></div>
+                <h3 class="admin-subheading">Histórico completo</h3><div class="admin-table-scroll"><table class="admin-table"><thead><tr><th>Dia</th><th>Data</th><th>Entrada</th><th>Saída</th><th>Duração</th></tr></thead><tbody id="historicoFuncionarioDiretor"></tbody></table></div>
+            </section>
+        </main>
+        <dialog id="deleteEmployeeDialog" class="delete-employee-dialog" aria-labelledby="deleteEmployeeTitle" aria-describedby="deleteEmployeeDescription">
+            <div class="delete-employee-card">
+                <span class="delete-employee-icon" aria-hidden="true">!</span>
+                <p class="card-kicker">AÇÃO PERMANENTE</p>
+                <h2 id="deleteEmployeeTitle">Excluir funcionário?</h2>
+                <p id="deleteEmployeeDescription">Esta ação excluirá o funcionário e TODOS os registros de ponto associados a ele. Essa ação não poderá ser desfeita.</p>
+                <strong id="deleteEmployeeName" class="delete-employee-name"></strong>
+                <p id="deleteEmployeeStatus" class="admin-status" role="status" aria-live="polite"></p>
+                <div class="delete-employee-actions">
+                    <button id="cancelDeleteEmployee" class="director-quiet-button" type="button">Cancelar</button>
+                    <button id="confirmDeleteEmployee" class="director-delete-button" type="button">Excluir definitivamente</button>
+                </div>
+            </div>
+        </dialog>
+    </section>
+    <div id="appShell" class="app-shell" hidden>
+        <header class="topbar">
+            <a class="brand" href="#inicio" aria-label="Controle de Ponto, início">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg>
+                </span>
+                <span>Controle <span class="brand-light">de Ponto</span></span>
+            </a>
+            <nav class="main-nav" aria-label="Navegação principal">
+                <a class="nav-link active" href="#inicio">Início</a>
+                <a class="nav-link" href="#registros">Relatórios</a>
+                <a class="nav-link" href="#configuracoes">Configurações</a>
+            </nav>
+            <div id="configuracoes" class="profile-card" aria-label="Meu perfil e configurações">
+                <span class="profile-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.5-3.5 3-5.5 7-5.5s6.5 2 7 5.5"></path></svg>
+                </span>
+                <input id="nomeFuncionario" class="profile-name" type="text" value="Meu perfil" aria-label="Funcionário conectado" readonly>
+                <button id="botaoSair" class="logout-button" type="button">Sair</button>
+            </div>
+        </header>
+
+        <main id="inicio">
+            <section class="welcome-row" aria-labelledby="page-title">
+                <div class="welcome-copy">
+                    <p class="eyebrow">JORNADA DE TRABALHO</p>
+                    <h1 id="page-title">Controle de <span>Ponto</span></h1>
+                    <p id="boasVindas" class="employee-greeting"></p>
+                    <p class="intro">Registre sua jornada de forma simples, segura e inteligente.</p>
+                    <span class="title-accent" aria-hidden="true"></span>
+                </div>
+            </section>
+
+            <section class="employee-section card" aria-labelledby="employee-title">
+                <div class="employee-section-heading">
+                    <div class="employee-section-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 20c.5-3.5 3-5.5 7-5.5s6.5 2 7 5.5"></path></svg>
+                    </div>
+                    <div>
+                        <p class="card-kicker">FUNCIONÁRIO CONECTADO</p>
+                        <h2 id="employee-title">Identificação do funcionário</h2>
+                        <p class="employee-section-description">Este perfil está vinculado à conta autenticada.</p>
+                    </div>
+                </div>
+                <form id="formFuncionario" class="employee-form">
+                    <div class="employee-field">
+                        <label for="nomeCadastro">Nome</label>
+                        <input id="nomeCadastro" name="nome" type="text" autocomplete="name" maxlength="100" placeholder="Digite o nome do funcionário" required>
+                    </div>
+                    <div class="employee-field">
+                        <label id="funcaoLabel" for="funcaoTrigger">Função</label>
+                        <div class="function-picker">
+                            <button id="funcaoTrigger" class="function-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="funcaoMenu">
+                                <span id="funcaoSelecionada">Limpeza</span>
+                                <svg class="function-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"></path></svg>
+                            </button>
+                            <div id="funcaoMenu" class="function-menu" role="listbox" aria-labelledby="funcaoLabel" hidden>
+                                <div class="function-option is-selected" role="option" tabindex="-1" aria-selected="true" data-value="Limpeza"><span>Limpeza</span><span class="function-check" aria-hidden="true">✓</span></div>
+                                <div class="function-option" role="option" tabindex="-1" aria-selected="false" data-value="Assessor"><span>Assessor</span><span class="function-check" aria-hidden="true">✓</span></div>
+                                <div class="function-option" role="option" tabindex="-1" aria-selected="false" data-value="Programador"><span>Programador</span><span class="function-check" aria-hidden="true">✓</span></div>
+                                <div class="function-option" role="option" tabindex="-1" aria-selected="false" data-value="Proprietário"><span>Proprietário</span><span class="function-check" aria-hidden="true">✓</span></div>
+                                <div class="function-option" role="option" tabindex="-1" aria-selected="false" data-value="SDR"><span>SDR</span><span class="function-check" aria-hidden="true">✓</span></div>
+                                <div class="function-option" role="option" tabindex="-1" aria-selected="false" data-value="Comercial"><span>Comercial</span><span class="function-check" aria-hidden="true">✓</span></div>
+                            </div>
+                            <select id="funcaoCadastro" class="native-function-select" name="funcao" tabindex="-1" aria-hidden="true" required>
+                            <option value="Limpeza">Limpeza</option>
+                            <option value="Assessor">Assessor</option>
+                            <option value="Programador">Programador</option>
+                            <option value="Proprietário">Proprietário</option>
+                            <option value="SDR">SDR</option>
+                            <option value="Comercial">Comercial</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="save-employee-button" type="submit">
+                        <span aria-hidden="true">✓</span> Salvar funcionário
+                    </button>
+                </form>
+                <p id="statusCadastro" class="employee-form-status" role="status" aria-live="polite"></p>
+                <div id="funcionarioSalvo" class="saved-employee" aria-live="polite" hidden>
+                    <span class="saved-employee-check" aria-hidden="true">✓</span>
+                    <div>
+                        <span class="saved-employee-label">FUNCIONÁRIO:</span>
+                        <strong id="nomeFuncionarioSalvo"></strong>
+                    </div>
+                    <span id="funcaoFuncionarioSalvo" class="saved-employee-role"></span>
+                </div>
+            </section>
+
+            <section class="dashboard-grid" aria-label="Painel de registro de ponto">
+                <div class="main-column">
+                    <section class="clock-card card" aria-label="Data e hora atuais">
+                        <div class="clock-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg>
+                        </div>
+                        <div class="clock-copy">
+                            <p class="card-kicker">HORÁRIO ATUAL</p>
+                            <time id="relogio" class="clock-time">--:--:--</time>
+                            <p id="dataAtual" class="clock-date">Carregando data…</p>
+                        </div>
+                        <span class="live-label"><span class="online-dot"></span> AO VIVO</span>
+                    </section>
+
+                    <section class="location-card card" aria-labelledby="location-title">
+                        <div class="section-heading">
+                            <div class="location-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24"><path d="M19 10.2c0 5-7 10.3-7 10.3S5 15.2 5 10.2a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
+                            </div>
+                            <div>
+                                <h2 id="location-title">Status da localização</h2>
+                                <p id="locationDetail">Aguardando verificação da sua localização...</p>
+                            </div>
+                        </div>
+                        <span id="locationBadge" class="location-badge location-unknown"><span class="badge-dot"></span><span id="locationLabel">Não verificada</span></span>
+                    </section>
+
+                    <section class="punch-card card" aria-labelledby="punch-title">
+                        <div class="punch-heading">
+                            <div>
+                                <p class="card-kicker">SEU REGISTRO</p>
+                                <h2 id="punch-title">Marcar ponto</h2>
+                            </div>
+                            <span class="secure-label"><span aria-hidden="true">⌑</span> Registro seguro</span>
+                        </div>
+                        <div class="active-employee-field">
+                            <label for="funcionarioAtivo">Funcionário conectado</label>
+                            <select id="funcionarioAtivo" class="active-employee-select" disabled>
+                                <option value="">Carregando funcionários...</option>
+                            </select>
+                        </div>
+                        <div id="estadoJornada" class="shift-status shift-status-loading" role="status" aria-live="polite">
+                            <span class="shift-status-dot" aria-hidden="true"></span>
+                            <div><strong id="estadoJornadaTitulo">CONSULTANDO EXPEDIENTE</strong><small id="estadoJornadaDetalhe">Carregando o status do funcionário.</small></div>
+                        </div>
+                        <p class="punch-hours-note">Horário de ponto: 07:00 às 20:00</p>
+                        <div class="punch-actions">
+                            <button id="botaoEntrada" class="punch-button entry-button" type="button" disabled>
+                                <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 5h5a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5M10 8l4 4-4 4m4-4H4"></path></svg></span>
+                                <span><strong>Bater Entrada</strong><small>Iniciar jornada de trabalho</small></span>
+                                <span class="button-arrow" aria-hidden="true">→</span>
+                            </button>
+                            <button id="botaoSaida" class="punch-button exit-button" type="button" disabled>
+                                <span class="button-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5m2-11 4 4-4 4m4-4H8"></path></svg></span>
+                                <span><strong>Bater Saída</strong><small>Finalizar jornada de trabalho</small></span>
+                                <span class="button-arrow" aria-hidden="true">→</span>
+                            </button>
+                        </div>
+                        <div id="statusBox" class="status-box status-neutral" role="status" aria-live="polite">
+                            <span class="status-symbol" aria-hidden="true">i</span>
+                            <p id="status">Cadastre um funcionário para registrar o ponto.</p>
+                        </div>
+                    </section>
+                </div>
+
+                <aside id="registros" class="records-card card" aria-labelledby="records-title">
+                    <div class="records-heading">
+                        <div>
+                            <p class="card-kicker">HISTÓRICO</p>
+                            <h2 id="records-title">Histórico de registros</h2>
+                        </div>
+                        <span class="calendar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"></rect><path d="M8 4v4m8-4v4M4 10h16m-11 4h.01M13 14h.01M9 17h.01"></path></svg></span>
+                    </div>
+                    <p id="recordsDate" class="records-date">Todos os registros · mais recentes primeiro</p>
+                    <div id="emptyRecords" class="empty-records">
+                            <span class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg></span>
+                            <p>Nenhum registro ainda</p>
+                            <span>Seus registros de ponto aparecerão aqui.</span>
+                    </div>
+                    <div id="historicoPonto" class="attendance-table-wrapper" hidden>
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Funcionário</th>
+                                    <th scope="col">Função</th>
+                                    <th scope="col">Entrada</th>
+                                    <th scope="col">Saída</th>
+                                    <th scope="col">Duração</th>
+                                    <th scope="col">Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaRegistros"></tbody>
+                        </table>
+                    </div>
+                    <div class="records-footnote"><span>✓</span> Registros sincronizados com o Supabase.</div>
+                </aside>
+            </section>
+            <footer class="page-footer">Controle de Ponto <span>·</span> Sua jornada, organizada.</footer>
+        </main>
+    </div>
+    <dialog id="employeeCredentialsDialog" class="credentials-dialog" aria-labelledby="credentialsTitle" aria-describedby="credentialsNotice">
+        <div class="credentials-card">
+            <p class="card-kicker">ACESSO AO SISTEMA</p>
+            <h2 id="credentialsTitle">FUNCIONÁRIO CADASTRADO</h2>
+            <dl class="credentials-list">
+                <div><dt>Nome</dt><dd id="credentialEmployeeName"></dd></div>
+                <div><dt>E-mail</dt><dd id="credentialEmployeeEmail"></dd></div>
+                <div><dt>Senha temporária</dt><dd id="credentialEmployeePassword" class="credential-password"></dd></div>
+            </dl>
+            <p id="credentialsNotice" class="credentials-notice">Guarde estas credenciais. A senha temporária vale por 48 horas e não será exibida novamente.</p>
+            <p id="credentialsCopyStatus" class="credentials-copy-status" role="status" aria-live="polite"></p>
+            <div class="credentials-actions">
+                <button id="copyEmployeeCredentials" class="director-action-button" type="button">COPIAR CREDENCIAIS</button>
+                <button id="closeEmployeeCredentials" class="director-quiet-button" type="button">FECHAR</button>
+            </div>
+        </div>
+    </dialog>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8"></script>
+    <script src="script.js"></script>
+</body>
+</html>

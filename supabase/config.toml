@@ -1,0 +1,9 @@
+[functions.admin]
+# A gateway exige JWT válido para todas as ações. A Edge Function mantém ainda
+# a verificação do usuário e do perfil Diretor como defesa em profundidade.
+verify_jwt = true
+
+[functions.bootstrap-director]
+# Única exceção sem JWT: cadastro inicial antes de existir sessão. O endpoint é
+# separado, requer flag e código server-side, e a RPC garante atomicamente uso único.
+verify_jwt = false

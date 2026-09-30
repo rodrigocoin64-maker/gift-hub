@@ -474,12 +474,21 @@ h1 span { color: #30dbb0; text-shadow: 0 0 28px rgb(31 220 175 / 25%); }
     right: 0;
     bottom: 0;
     left: 0;
-    height: 25vh;
+    height: 42vh;
     background:
-        linear-gradient(176deg, transparent 0 40%, rgb(0 220 180 / 30%) 40.5%, rgb(0 220 180 / 8%) 41.5%, transparent 43%),
-        radial-gradient(ellipse 58% 85% at 50% 100%, transparent 71%, rgb(0 220 180 / 20%) 72%, transparent 72.5%),
-        radial-gradient(ellipse at 50% 32%, rgb(0 208 172 / 8%), transparent 68%);
-    filter: drop-shadow(0 0 8px rgb(0 225 180 / 20%));
+        radial-gradient(circle at 8% 34%, rgb(24 230 208 / 80%) 0 1px, transparent 2.2px),
+        radial-gradient(circle at 24% 53%, rgb(0 201 183 / 60%) 0 1px, transparent 2px),
+        radial-gradient(circle at 42% 28%, rgb(24 230 208 / 47%) 0 1px, transparent 2px),
+        radial-gradient(circle at 68% 46%, rgb(0 201 183 / 62%) 0 1px, transparent 2px),
+        radial-gradient(circle at 89% 31%, rgb(24 230 208 / 68%) 0 1px, transparent 2px),
+        linear-gradient(176deg, transparent 5%, rgb(0 201 183 / 36%) 6.1%, rgb(24 230 208 / 13%) 6.7%, transparent 8.1%),
+        radial-gradient(ellipse 56% 105% at 50% 7%, transparent 68.7%, rgb(0 175 160 / 18%) 69%, transparent 69.35%),
+        radial-gradient(ellipse 79% 138% at 50% 9%, transparent 71.2%, rgb(0 201 183 / 21%) 71.45%, transparent 71.8%),
+        radial-gradient(ellipse 102% 170% at 50% 11%, transparent 75.6%, rgb(24 230 208 / 12%) 75.85%, transparent 76.2%),
+        repeating-conic-gradient(from 180deg at 50% 6%, transparent 0deg 8.7deg, rgb(0 175 160 / 6%) 8.85deg 9deg, transparent 9.15deg 18deg),
+        repeating-linear-gradient(to bottom, transparent 0 13px, rgb(0 175 160 / 5%) 13.5px, transparent 14px 22px),
+        linear-gradient(to bottom, rgb(3 37 37 / 4%), rgb(0 21 22 / 70%));
+    filter: drop-shadow(0 0 5px rgb(0 201 183 / 15%));
     content: "";
     pointer-events: none;
 }
@@ -540,7 +549,7 @@ body:has(.auth-view:not([hidden])) #backgroundNetwork {
     .auth-form input { height: 46px; font-size: 12px; }
     .auth-card .auth-submit { height: 47px; font-size: 13px; }
     body:has(.auth-view:not([hidden])) #backgroundNetwork { opacity: .65; transform: translate(-42.5vw, -4vh) scale(1.7); }
-    .auth-view::after { height: 18vh; }
+    .auth-view::after { height: 34vh; opacity: .72; }
 }
 
 .clipboard-fallback { position: fixed; left: -9999px; top: 0; opacity: 0; pointer-events: none; }

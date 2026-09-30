@@ -29,7 +29,7 @@
     .auth-brand .brand-mark { width: 48px; height: 48px; }
     .auth-brand-tagline { font-size: 7px; letter-spacing: 1.65px; }
     .login-mode-button { padding-inline: 5px; font-size: 10px; }
-    .director-shell { width: calc(100% - 30px); }
+    .director-shell { width: calc(100% - clamp(30px, 13.2vw, 68px)); }
     .director-topbar { min-height: 70px; }
     .director-main { padding-top: 32px; }
     .director-account { display: grid; }
@@ -185,4 +185,49 @@ body:has(.auth-view:not([hidden])) #backgroundNetwork {
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Director dashboard: keep the HUD composition usable on smaller screens. */
+@media (max-width: 1100px) {
+    .director-placeholder .director-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 850px) {
+    body:has(#directorShell:not([hidden])) #backgroundNetwork { opacity: .34; transform: translate(-5vw, 0) scale(1.18); }
+    .director-main { gap: 16px; padding-top: 20px; }
+    .director-welcome { min-height: 0; padding: 28px; }
+    .director-placeholder { padding: 20px; }
+    .director-placeholder .director-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .director-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+    body:has(#directorShell:not([hidden])) #backgroundNetwork { opacity: .26; transform: translate(2vw, 2vh) scale(1.05); }
+    .director-topbar { min-height: 58px; }
+    .director-topbar .brand { font-size: 12px; }
+    .director-main { gap: 13px; padding: 14px 0 32px; }
+    .director-main > .card { border-radius: 12px; }
+    .director-welcome { padding: 22px 18px; }
+    .director-welcome::after { top: 18px; right: 17px; width: 33px; opacity: .38; }
+    .director-welcome .card-kicker, .director-placeholder > .card-kicker, .director-section-heading .card-kicker { font-size: 9px; letter-spacing: 2px; }
+    .director-welcome h1 { max-width: calc(100% - 30px); font-size: clamp(27px, 8vw, 36px); letter-spacing: -1px; }
+    .director-welcome > p:not(.card-kicker):not(.director-greeting) { max-width: 36ch; font-size: 12px; }
+    .director-account { gap: 8px; margin-top: 16px; }
+    .director-account > div { min-width: 100%; min-height: 58px; }
+    .director-placeholder { padding: 17px 14px; }
+    .director-placeholder .director-metrics { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .director-metric { min-height: 78px; gap: 8px; padding: 14px 52px 12px 52px; }
+    .director-metric::before { top: 15px; left: 14px; }
+    .director-metric::after { bottom: 17px; }
+    .director-metric > span { font-size: 9px; }
+    .director-metric > strong { font-size: 26px; }
+    .director-tools { padding: 17px 14px; }
+    .director-section-heading { align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+    .director-section-heading h2 { font-size: 18px; }
+    .director-action-button, .director-quiet-button { max-width: 100%; }
+    .director-filters { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+    .director-filters label:nth-child(1), .director-filters label:nth-child(2) { grid-column: auto; }
+    .admin-table-scroll { max-width: 100%; overflow-x: auto; }
+    .admin-table { min-width: 880px; }
+    .detail-metrics { grid-template-columns: minmax(0, 1fr); }
 }

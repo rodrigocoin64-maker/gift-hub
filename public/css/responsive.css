@@ -1,0 +1,188 @@
+@keyframes pulse { 50% { opacity: .48; box-shadow: 0 0 4px rgb(55 223 173 / 35%); } }
+@keyframes location-breathe { 50% { opacity: .68; box-shadow: 0 0 4px currentColor; } }
+@keyframes location-alert { 50% { opacity: .55; box-shadow: 0 0 3px currentColor; } }
+@keyframes record-appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes auth-brand-enter { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes auth-card-enter { from { opacity: 0; transform: translateY(12px) scale(.99); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (max-width: 850px) {
+    .app-shell { width: min(100% - 48px, 680px); }
+    .topbar { grid-template-columns: 1fr auto; row-gap: 0; min-height: 76px; }
+    .main-nav { grid-column: 1 / -1; grid-row: 2; justify-content: center; gap: clamp(25px, 8vw, 60px); height: 44px; }
+    .nav-link { font-size: 12px; }
+    .profile-card { grid-column: 2; grid-row: 1; }
+    main { padding-top: 38px; }
+    .employee-section { grid-template-columns: 1fr; gap: 14px; }
+    .dashboard-grid { grid-template-columns: 1fr; gap: 17px; }
+    .records-card { min-height: 330px; }
+    .director-placeholder .director-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .detail-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .weekly-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .record-list { min-height: 150px; }
+    .empty-records { min-height: 150px; }
+    .background-network { opacity: .55; }
+}
+
+@media (max-width: 520px) {
+    .auth-view { gap: 20px; padding: 22px 15px; }
+    .auth-view .auth-card { width: 100%; padding: 24px 20px; border-radius: 16px; }
+    .auth-brand .brand-mark { width: 48px; height: 48px; }
+    .auth-brand-tagline { font-size: 7px; letter-spacing: 1.65px; }
+    .login-mode-button { padding-inline: 5px; font-size: 10px; }
+    .director-shell { width: calc(100% - 30px); }
+    .director-topbar { min-height: 70px; }
+    .director-main { padding-top: 32px; }
+    .director-account { display: grid; }
+    .director-tools { padding: 17px 14px; }
+    .director-section-heading { align-items: flex-start; flex-direction: column; }
+    .director-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .director-placeholder .director-metrics, .detail-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .director-metric { padding: 12px; }
+    .director-metric > strong { font-size: 22px; }
+    .director-filters { grid-template-columns: 1fr 1fr; }
+    .director-filters label:nth-child(1), .director-filters label:nth-child(2) { grid-column: 1 / -1; }
+    .admin-employee-form { grid-template-columns: 1fr; }
+    .weekly-summary { grid-template-columns: 1fr 1fr; }
+    .app-shell { width: calc(100% - 30px); }
+    .topbar { min-height: 70px; }
+    .brand { gap: 9px; font-size: 13px; }
+    .brand-mark { width: 35px; height: 35px; padding: 8px; border-radius: 11px; }
+    .profile-card { gap: 6px; padding: 7px 8px; font-size: 10px; }
+    .profile-avatar { width: 18px; height: 18px; }
+    .profile-name { width: 55px; }
+    .profile-chevron { margin-left: 0; }
+    .main-nav { height: 42px; gap: 0; justify-content: space-between; }
+    .nav-link { font-size: 11px; }
+    main { padding-top: 32px; }
+    .welcome-row { margin-bottom: 22px; }
+    h1 { font-size: 33px; letter-spacing: -1.2px; }
+    .intro { max-width: 310px; font-size: 12px; line-height: 1.55; }
+    .title-accent { margin-top: 15px; }
+    .employee-section { gap: 13px; padding: 16px 14px; }
+    .employee-form { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .save-employee-button { grid-column: 1 / -1; }
+    .saved-employee { gap: 8px; padding: 9px; }
+    .saved-employee-role { padding: 5px 7px; }
+    .main-column { gap: 13px; }
+    .clock-card { min-height: 125px; gap: 13px; padding: 19px 15px; }
+    .clock-icon { width: 48px; height: 48px; padding: 12px; border-radius: 14px; }
+    .clock-time { font-size: 31px; }
+    .clock-card .card-kicker { font-size: 9px; }
+    .clock-date { max-width: 215px; font-size: 10px; }
+    .live-label { top: 14px; right: 13px; gap: 6px; font-size: 8px; }
+    .live-label .online-dot { width: 6px; height: 6px; }
+    .location-card { align-items: flex-start; flex-direction: column; padding: 15px; }
+    .location-card p { max-width: 220px; line-height: 1.45; }
+    .location-badge { margin-left: 56px; padding: 7px 10px; }
+    .punch-card { padding: 18px 14px 14px; }
+    .punch-actions { grid-template-columns: 1fr; gap: 9px; }
+    .punch-button { min-height: 66px; }
+    .punch-button strong { font-size: 12px; }
+    .punch-button small { font-size: 9px; }
+    .secure-label { font-size: 9px; }
+    .records-card { min-height: 315px; padding: 19px 16px 15px; }
+    .background-network { opacity: .4; }
+}
+
+/* Login alinhado à referência: marca central, globo ampliado e horizonte luminoso. */
+.auth-view {
+    overflow: visible;
+    gap: clamp(20px, 3.1vh, 34px);
+}
+
+.auth-view::before {
+    background:
+        radial-gradient(ellipse at 50% 44%, rgb(11 112 85 / 18%), transparent 43%),
+        radial-gradient(ellipse at 50% 91%, rgb(0 225 175 / 11%), transparent 34%),
+        linear-gradient(180deg, rgb(2 13 17 / 8%), rgb(2 13 17 / 28%));
+}
+
+.auth-view::after {
+    position: fixed;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 42vh;
+    background:
+        radial-gradient(circle at 8% 34%, rgb(24 230 208 / 80%) 0 1px, transparent 2.2px),
+        radial-gradient(circle at 24% 53%, rgb(0 201 183 / 60%) 0 1px, transparent 2px),
+        radial-gradient(circle at 42% 28%, rgb(24 230 208 / 47%) 0 1px, transparent 2px),
+        radial-gradient(circle at 68% 46%, rgb(0 201 183 / 62%) 0 1px, transparent 2px),
+        radial-gradient(circle at 89% 31%, rgb(24 230 208 / 68%) 0 1px, transparent 2px),
+        linear-gradient(176deg, transparent 5%, rgb(0 201 183 / 36%) 6.1%, rgb(24 230 208 / 13%) 6.7%, transparent 8.1%),
+        radial-gradient(ellipse 56% 105% at 50% 7%, transparent 68.7%, rgb(0 175 160 / 18%) 69%, transparent 69.35%),
+        radial-gradient(ellipse 79% 138% at 50% 9%, transparent 71.2%, rgb(0 201 183 / 21%) 71.45%, transparent 71.8%),
+        radial-gradient(ellipse 102% 170% at 50% 11%, transparent 75.6%, rgb(24 230 208 / 12%) 75.85%, transparent 76.2%),
+        repeating-conic-gradient(from 180deg at 50% 6%, transparent 0deg 8.7deg, rgb(0 175 160 / 6%) 8.85deg 9deg, transparent 9.15deg 18deg),
+        repeating-linear-gradient(to bottom, transparent 0 13px, rgb(0 175 160 / 5%) 13.5px, transparent 14px 22px),
+        linear-gradient(to bottom, rgb(3 37 37 / 4%), rgb(0 21 22 / 70%));
+    filter: drop-shadow(0 0 5px rgb(0 201 183 / 15%));
+    content: "";
+    pointer-events: none;
+}
+
+body:has(.auth-view:not([hidden])) #backgroundNetwork {
+    opacity: .92;
+    transform: translate(-44.8vw, 8.5vh) scale(1.6);
+    transform-origin: 50% 50%;
+}
+
+.auth-brand .brand-mark {
+    width: clamp(72px, 9.4vw, 194px);
+    height: clamp(72px, 9.4vw, 194px);
+    padding: clamp(14px, 1.8vw, 36px);
+    border-radius: clamp(20px, 1.15vw, 25px);
+    box-shadow: inset 0 1px 0 rgb(225 255 246 / 20%), inset 0 0 27px rgb(49 225 181 / 22%), 0 0 38px rgb(24 204 157 / 20%);
+}
+
+.auth-view .auth-brand { gap: clamp(10px, 1.6vh, 19px); }
+.auth-brand-copy { gap: clamp(6px, .8vh, 10px); }
+.auth-brand-name { font-size: clamp(30px, 2.8vw, 58px); letter-spacing: -.045em; }
+.auth-brand-tagline { font-size: clamp(8px, .78vw, 16px); letter-spacing: .22em; }
+
+.auth-view .auth-card {
+    width: min(100%, 32vw, 660px);
+    padding: clamp(22px, 2.2vw, 44px);
+    border-radius: clamp(16px, 1.4vw, 28px);
+}
+
+.auth-view .password-setup-card { width: min(100%, 470px); }
+.auth-card .card-kicker { font-size: clamp(9px, .8vw, 16px); letter-spacing: .2em; }
+.auth-card h1 { font-size: clamp(25px, 2.2vw, 45px); }
+.auth-description { font-size: clamp(12px, .95vw, 19px); }
+.login-mode-switch { border-radius: clamp(10px, .9vw, 18px); }
+.login-mode-button { min-height: clamp(38px, 2.9vw, 60px); font-size: clamp(10px, .83vw, 17px); }
+.auth-form label { font-size: clamp(11px, .82vw, 17px); }
+.auth-form input { height: clamp(40px, 3vw, 62px); font-size: clamp(12px, .95vw, 19px); }
+.password-toggle, .auth-secondary-action { font-size: clamp(10px, .78vw, 16px); }
+.auth-card .auth-submit { height: clamp(43px, 3.1vw, 64px); font-size: clamp(12px, .95vw, 19px); }
+.auth-status { font-size: clamp(11px, .78vw, 16px); }
+
+@media (max-width: 850px) {
+    .auth-view .auth-card { width: min(72vw, 520px); }
+    .auth-view .password-setup-card { width: min(72vw, 470px); }
+    body:has(.auth-view:not([hidden])) #backgroundNetwork { transform: translate(-34vw, 4vh) scale(1.24); }
+}
+
+@media (max-width: 520px) {
+    .auth-view { gap: 20px; padding: 25px 15px; }
+    .auth-brand .brand-mark { width: 72px; height: 72px; padding: 14px; }
+    .auth-brand-name { font-size: clamp(29px, 8vw, 38px); }
+    .auth-brand-tagline { font-size: 7px; letter-spacing: 1.65px; }
+    .auth-view .auth-card, .auth-view .password-setup-card { width: 100%; padding: 24px 20px; border-radius: 16px; }
+    .auth-card h1 { font-size: 26px; }
+    .auth-description { font-size: 12px; }
+    .login-mode-button { min-height: 40px; padding-inline: 5px; font-size: 10px; }
+    .auth-form label { font-size: 11px; }
+    .auth-form input { height: 46px; font-size: 12px; }
+    .auth-card .auth-submit { height: 47px; font-size: 13px; }
+    body:has(.auth-view:not([hidden])) #backgroundNetwork { opacity: .65; transform: translate(-42.5vw, -4vh) scale(1.7); }
+    .auth-view::after { height: 34vh; opacity: .72; }
+}
+
+.clipboard-fallback { position: fixed; left: -9999px; top: 0; opacity: 0; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

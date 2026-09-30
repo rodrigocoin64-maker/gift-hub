@@ -1,0 +1,46 @@
+.auth-view { position: relative; z-index: 1; display: grid; min-height: 100vh; min-height: 100svh; align-content: center; justify-items: center; gap: clamp(20px, 3.2vh, 30px); padding: 30px 20px; overflow: hidden; font-family: Inter, Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.auth-view[hidden] { display: none; }
+.auth-view::before { position: fixed; z-index: -1; inset: 0; background: radial-gradient(ellipse at 50% 44%, rgb(14 81 65 / 20%), transparent 43%), linear-gradient(180deg, rgb(2 13 17 / 8%), rgb(2 13 17 / 28%)); content: ""; pointer-events: none; }
+.auth-view .auth-brand { display: flex; flex-direction: column; align-items: center; justify-self: center; gap: 12px; margin: 0; color: #f3fbf8; text-align: center; animation: auth-brand-enter .65s cubic-bezier(.2,.75,.25,1) both; }
+.auth-brand .brand-mark { width: 52px; height: 52px; padding: 12px; border-color: rgb(63 231 186 / 47%); border-radius: 17px; background: linear-gradient(145deg, rgb(20 103 91 / 78%), rgb(8 47 50 / 83%)); box-shadow: inset 0 1px 0 rgb(225 255 246 / 18%), inset 0 0 18px rgb(49 225 181 / 18%), 0 0 32px rgb(24 204 157 / 19%); backdrop-filter: blur(12px); }
+.auth-brand-copy { display: grid; justify-items: center; gap: 6px; }
+.auth-brand-name { color: #f5fbf9; font-family: Inter, Geist, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: clamp(27px, 3vw, 34px); font-weight: 760; letter-spacing: -1.5px; line-height: 1.08; }
+.auth-brand-name .brand-light { color: #51dfb3; font-weight: 680; }
+.auth-brand-tagline { color: #87b2a7; font-size: 8px; font-weight: 700; letter-spacing: 2.1px; }
+.auth-brand-tagline i { padding: 0 3px; color: #35d4a6; font-style: normal; }
+.auth-view .auth-card { width: min(100%, 448px); padding: 34px; border-color: rgb(55 205 164 / 31%); border-radius: 19px; background: linear-gradient(145deg, rgb(8 34 38 / 84%), rgb(4 23 28 / 88%)); box-shadow: 0 22px 70px rgb(0 8 10 / 34%), 0 0 45px rgb(18 133 104 / 9%), inset 0 1px 0 rgb(221 255 244 / 7%); backdrop-filter: blur(22px); animation: auth-card-enter .72s .08s cubic-bezier(.2,.75,.25,1) both; }
+.password-setup-card { width: min(100%, 470px); }
+.auth-card .card-kicker { margin-bottom: 9px; color: #50ddb2; text-align: center; }
+.auth-card h1 { margin: 0 0 8px; color: #f0f8f5; font-size: clamp(25px, 3vw, 29px); font-weight: 700; letter-spacing: -.9px; text-align: center; }
+.auth-description { margin: 0 0 23px; color: #9bb8af; font-size: 12px; line-height: 1.6; text-align: center; }
+.login-mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 0 0 20px; padding: 4px; border: 1px solid rgb(94 162 146 / 23%); border-radius: 11px; background: rgb(1 18 22 / 55%); }
+.login-mode-button { min-height: 39px; padding: 7px 9px; color: #a3bcb5; border: 1px solid transparent; border-radius: 8px; background: transparent; cursor: pointer; font: inherit; font-size: 11px; font-weight: 620; transition: color .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+.login-mode-button:hover, .login-mode-button:focus-visible { color: #e6f5f0; outline: none; }
+.login-mode-button.is-active { color: #b0f4d9; border-color: rgb(55 218 169 / 31%); background: linear-gradient(115deg, rgb(12 70 57 / 76%), rgb(7 49 45 / 82%)); box-shadow: inset 0 1px 0 rgb(218 255 240 / 7%); }
+.auth-form { display: grid; gap: 9px; }
+.auth-form[hidden] { display: none; }
+.auth-form label { margin-top: 5px; color: #bad0c9; font-size: 11px; font-weight: 620; }
+.auth-form input { width: 100%; height: 46px; padding: 0 13px; color: #e8f5f0; border: 1px solid rgb(100 157 146 / 27%); border-radius: 9px; outline: none; background: rgb(2 20 24 / 76%); font: inherit; font-size: 12px; transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+.auth-form input::placeholder { color: #6f8c84; }
+.auth-form input:hover { border-color: rgb(91 180 153 / 47%); }
+.auth-form input:focus { border-color: rgb(55 218 169 / 78%); background: rgb(3 26 28 / 92%); box-shadow: 0 0 0 3px rgb(34 195 146 / 11%), 0 0 20px rgb(34 195 146 / 7%); }
+.password-field { position: relative; }
+.password-field input { padding-right: 104px; }
+.password-toggle { position: absolute; top: 50%; right: 10px; padding: 6px 4px; transform: translateY(-50%); color: #83d9b9; border: 0; background: transparent; cursor: pointer; font: inherit; font-size: 10px; font-weight: 620; }
+.password-toggle:hover, .password-toggle:focus-visible { color: #c1ffe5; outline: none; text-decoration: underline; }
+.auth-card .auth-submit { position: relative; width: 100%; height: 47px; margin-top: 10px; overflow: hidden; border-color: rgb(58 229 173 / 53%); border-radius: 10px; background: linear-gradient(112deg, #087956, #08745f 52%, #075846); box-shadow: 0 7px 20px rgb(10 155 111 / 15%), inset 0 1px 0 rgb(222 255 243 / 13%); font-size: 13px; font-weight: 680; letter-spacing: .1px; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, filter .2s ease; }
+.auth-card .auth-submit:hover { transform: translateY(-1px); border-color: rgb(97 255 203 / 77%); background: linear-gradient(112deg, #098660, #07866d 52%, #08674f); box-shadow: 0 9px 25px rgb(10 185 127 / 22%), 0 0 20px rgb(32 216 160 / 11%), inset 0 1px 0 rgb(222 255 243 / 16%); }
+.auth-card .auth-submit:active { transform: translateY(0) scale(.992); }
+.auth-status { min-height: 18px; margin: 3px 0 0; color: #ffaaa4; font-size: 11px; line-height: 1.45; }
+.auth-status:empty { display: none; }
+.auth-status.auth-success { color: #78e8b9; }
+.auth-secondary-action { display: block; width: 100%; margin-top: 14px; padding: 5px; color: #8ce5c3; border: 0; background: transparent; cursor: pointer; font: inherit; font-size: 11px; }
+.auth-secondary-action:hover, .auth-secondary-action:focus-visible { color: #d0ffea; outline: none; text-decoration: underline; }
+.auth-signup-form { margin-top: 16px; padding-top: 15px; border-top: 1px solid rgb(100 157 146 / 18%); }
+.auth-signup-form[hidden] { display: none; }
+.auth-signup-form input { margin-top: 5px; }
+.password-requirements { display: grid; gap: 5px; margin: 1px 0 4px; padding: 0; list-style: none; }
+.password-requirements li { position: relative; padding-left: 17px; color: #9bb4ae; font-size: 10px; line-height: 1.4; }
+.password-requirements li::before { position: absolute; left: 0; color: #ffaaa4; content: "○"; }
+.password-requirements li.is-met { color: #78e8b9; }
+.password-requirements li.is-met::before { color: #78e8b9; content: "✓"; }
